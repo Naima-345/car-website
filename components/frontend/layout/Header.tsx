@@ -1,130 +1,80 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Services', href: '/services' },
-  { name: 'Stock', href: '/stock' },
-  { name: 'Gallery', href: '/gallery' },
-  { name: 'Contact', href: '/contact' },
-];
-
-export function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+export default function Header() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-white shadow-lg py-4'
-          : 'bg-transparent py-6'
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">JC</span>
-            </div>
-            <span
-              className={cn(
-                'text-xl font-bold font-display transition-colors',
-                isScrolled ? 'text-gray-900' : 'text-white'
-              )}
-            >
-              Japanese Cars
-            </span>
-          </Link>
+    <header className="w-full sticky top-0 z-50 bg-[#F5EEDC] shadow-md border-b border-[#E6D9B6]">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  'font-medium transition-colors hover:text-primary-600',
-                  isScrolled ? 'text-gray-700' : 'text-white'
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
+        {/* --- Logo Section --- */}
+        <Link href="/" className="text-2xl font-bold tracking-wide">
+          <span className="text-[#A67B5B]">AL</span>{" "}
+          <span className="text-[#008080]">Qawsa</span>{" "}
+          <span className="text-[#C19A6B]">Imports</span>
+        </Link>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <Link
-              href="/contact"
-              className="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
-            >
-              Get Started
-            </Link>
-          </div>
+        {/* --- Desktop Menu --- */}
+        <nav className="hidden md:flex items-center gap-10 text-[#5A4B3C] font-medium">
+          <Link href="/" className="hover:text-[#008080] transition">Home</Link>
+          <Link href="/cars" className="hover:text-[#008080] transition">Cars</Link>
+          <Link href="/about" className="hover:text-[#008080] transition">About</Link>
+          <Link href="/contact" className="hover:text-[#008080] transition">Contact</Link>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2"
+          <Link
+            href="/inquiry"
+            className="
+              bg-[#C19A6B]
+              text-white
+              px-5 py-2
+              rounded-xl
+              shadow-sm
+              hover:bg-[#A67B5B]
+              transition-all
+            "
           >
-            {isOpen ? (
-              <X className={cn('w-6 h-6', isScrolled ? 'text-gray-900' : 'text-white')} />
-            ) : (
-              <Menu className={cn('w-6 h-6', isScrolled ? 'text-gray-900' : 'text-white')} />
-            )}
-          </button>
-        </div>
+            Import Now
+          </Link>
+        </nav>
+
+        {/* --- Mobile Menu Button --- */}
+        <button
+          className="md:hidden text-[#5A4B3C]"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t border-gray-200"
+      {/* --- Mobile Dropdown Menu --- */}
+      {open && (
+        <div className="md:hidden bg-[#F5EEDC] border-t border-[#E6D9B6] px-6 py-4 space-y-4 text-[#5A4B3C] font-medium">
+          <Link href="/" className="block hover:text-[#008080]">Home</Link>
+          <Link href="/cars" className="block hover:text-[#008080]">Cars</Link>
+          <Link href="/about" className="block hover:text-[#008080]">About</Link>
+          <Link href="/contact" className="block hover:text-[#008080]">Contact</Link>
+
+          <Link
+            href="/inquiry"
+            className="
+              inline-block
+              bg-[#C19A6B]
+              text-white
+              px-5 py-2
+              rounded-xl
+              shadow-sm
+              hover:bg-[#A67B5B]
+              transition-all
+            "
           >
-            <div className="px-4 py-6 space-y-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="block text-gray-700 hover:text-primary-600 font-medium"
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <Link
-                href="/contact"
-                onClick={() => setIsOpen(false)}
-                className="block w-full px-6 py-3 bg-primary-600 text-white text-center rounded-lg font-medium hover:bg-primary-700"
-              >
-                Get Started
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            Import Now
+          </Link>
+        </div>
+      )}
     </header>
   );
 }

@@ -1,118 +1,82 @@
-import Link from 'next/link';
-import { Facebook, Instagram, Mail, Phone, MapPin, Twitter } from 'lucide-react';
+'use client';
 
-const footerLinks = {
-  company: [
-    { name: 'About Us', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact', href: '/contact' },
-  ],
-  resources: [
-    { name: 'Blog', href: '/blog' },
-    { name: 'FAQs', href: '/faqs' },
-    { name: 'Terms & Conditions', href: '/terms' },
-    { name: 'Privacy Policy', href: '/privacy' },
-  ],
-  contact: [
-    { icon: Phone, text: '+880 1XXX-XXXXXX' },
-    { icon: Mail, text: 'info@japanesecars.com' },
-    { icon: MapPin, text: 'Dhaka, Bangladesh' },
-  ],
-};
+import { 
+  Facebook, 
+  Twitter, 
+  Instagram, 
+  Linkedin, 
+  Mail, 
+  Phone, 
+  MapPin 
+} from 'lucide-react';
 
-const socialLinks = [
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
-];
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
 
-export function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Company Info */}
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">JC</span>
-              </div>
-              <span className="text-xl font-bold text-white font-display">
-                Japanese Cars
-              </span>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-0 lg:divide-x lg:divide-gray-700">
+          {/* Left Section - Company Info */}
+          <div className="lg:pr-8">
+            <h3 className="text-white mb-4">Company</h3>
             <p className="text-sm mb-4">
-              Your trusted partner in importing premium quality cars from Japan. 
-              Excellence in every detail.
+              Building innovative solutions for a better tomorrow. We're committed to excellence and customer satisfaction.
             </p>
             <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors"
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
+              <a href="#" className="hover:text-white transition-colors">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                <Linkedin className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
-          {/* Company Links */}
-          <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Company</h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm hover:text-primary-500 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Middle Section - Quick Links */}
+          <div className="lg:px-8">
+            <h3 className="text-white mb-4">Quick Links</h3>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+              <a href="#" className="hover:text-white transition-colors">About Us</a>
+              <a href="#" className="hover:text-white transition-colors">Help Center</a>
+              <a href="#" className="hover:text-white transition-colors">Services</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Portfolio</a>
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Blog</a>
+              <a href="#" className="hover:text-white transition-colors">Careers</a>
+            </div>
           </div>
 
-          {/* Resources Links */}
-          <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Resources</h3>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm hover:text-primary-500 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Contact Us</h3>
-            <ul className="space-y-3">
-              {footerLinks.contact.map((item, index) => (
-                <li key={index} className="flex items-start space-x-3">
-                  <item.icon className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">{item.text}</span>
-                </li>
-              ))}
+          {/* Right Section - Contact Info */}
+          <div className="lg:pl-8">
+            <h3 className="text-white mb-4">Contact</h3>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <span>123 Business Street, Suite 100<br />New York, NY 10001</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="w-5 h-5 flex-shrink-0" />
+                <span>+1 (555) 123-4567</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-5 h-5 flex-shrink-0" />
+                <span>hello@company.com</span>
+              </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm">
-          <p>
-            © {new Date().getFullYear()} Japanese Cars Import. All rights reserved.
-          </p>
+        <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
+          <p>&copy; {currentYear} Company Name. All rights reserved.</p>
         </div>
       </div>
     </footer>
